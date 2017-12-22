@@ -7,6 +7,7 @@
 */
 
 using System;
+using System.IO;
 
 namespace WordGuessGame
 {
@@ -44,7 +45,7 @@ namespace WordGuessGame
                     StartGame(path);
                     break;
                 case "2":
-                    ViewFile(path);
+                    ReadFile(path);
                     break;
                 case "3":
                     AddToFile(path);
@@ -67,9 +68,53 @@ namespace WordGuessGame
 
         }
 
-        public static void ViewFile(string path)
+        public static void CreateFile(string path)
         {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                try
+                {
+                    sw.Write("--- Start of File ---");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Failed creating file...");
+                    throw;
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+        }
 
+        public static void ReadFile(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    Console.WriteLine("Can't read file because it doesn't exist. Creating file now...");
+                    CreateFile(path);
+                }
+                using(StreamReader sr = new StreamReader(path))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(s);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed reading file...");
+                throw;
+            }
+            finally
+            {
+                Console.WriteLine("Read File Operation Complete.");
+            }
         }
 
         public static void AddToFile(string path)
