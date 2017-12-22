@@ -48,10 +48,15 @@ namespace WordGuessGame
                     ReadFile(path);
                     break;
                 case "3":
-                    AddToFile(path);
+                    Console.WriteLine("Enter word to add to dictionary");
+                    userInput = Console.ReadLine();
+                    WriteToFile(path, userInput);
                     break;
                 case "4":
-                    RemoveFromFile(path);
+                    ReadFile(path);
+                    Console.WriteLine("Type the word to delete from the dictionary");
+                    userInput = Console.ReadLine();
+                    UpdateFile(path, userInput);
                     break;
                 case "5":
                     break;
@@ -68,7 +73,7 @@ namespace WordGuessGame
 
         }
 
-        public static void CreateFile(string path)
+        private static void CreateFile(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
@@ -117,14 +122,39 @@ namespace WordGuessGame
             }
         }
 
-        public static void AddToFile(string path)
+        public static void WriteToFile(string path, string userInput)
         {
-
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                sw.WriteLine(userInput);
+            }
+            Console.WriteLine("Write File Operation Complete.");
         }
 
-        public static void RemoveFromFile(string path)
+        public static void UpdateFile(string path, string userInput)
         {
-
+            string tempPath = "temp.txt";
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    if (userInput.ToLower() == s.ToLower()) continue;
+                    else
+                    {
+                        WriteToFile(tempPath, s);
+                    }
+                }
+            }
+            try
+            {
+                File.Copy(tempPath, path, true);
+                File.Delete(tempPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to overwrite word bank or delete temp file.");
+            }
         }
     }
 }

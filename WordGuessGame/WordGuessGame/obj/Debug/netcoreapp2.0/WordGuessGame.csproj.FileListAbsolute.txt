@@ -1,0 +1,11 @@
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.deps.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.runtimeconfig.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.runtimeconfig.dev.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.pdb
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.csprojResolveAssemblyReference.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.csproj.CoreCompileInputs.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.AssemblyInfoInputs.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.AssemblyInfo.cs
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\WordGuessGame\obj\Debug\netcoreapp2.0\WordGuessGame.pdb
