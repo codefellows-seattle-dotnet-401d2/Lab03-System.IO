@@ -13,6 +13,10 @@ namespace WordGuessGame
 {
     class Program
     {
+        /// <summary>
+        /// Handles main loop of program, only selecting "5" will exit the program.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             string option = "";
@@ -26,6 +30,10 @@ namespace WordGuessGame
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Displays a list of options, then waits for user input, checks that its valid, then calls appropriate method.
+        /// </summary>
+        /// <returns>Returns the menu option the user selected</returns>
         public static string MainMenu()
         {
             Console.Write(
@@ -48,13 +56,13 @@ namespace WordGuessGame
                     ReadFile(path);
                     break;
                 case "3":
-                    Console.WriteLine("Enter word to add to dictionary");
+                    Console.Write("Enter word to add to word bank: ");
                     userInput = Console.ReadLine();
-                    WriteToFile(path, userInput);
+                    AppendToFile(path, userInput);
                     break;
                 case "4":
                     ReadFile(path);
-                    Console.WriteLine("Type the word to delete from the dictionary");
+                    Console.Write("Type the word to delete from the word bank: ");
                     userInput = Console.ReadLine();
                     UpdateFile(path, userInput);
                     break;
@@ -73,17 +81,21 @@ namespace WordGuessGame
 
         }
 
+        /// <summary>
+        /// Creates an empty file at path.
+        /// </summary>
+        /// <param name="path">full file path</param>
         private static void CreateFile(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
                 try
                 {
-                    sw.Write("--- Start of File ---");
+                    sw.Write("");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Failed creating file...");
+                    Console.WriteLine("Failed creating file... " + e.Message);
                     throw;
                 }
                 finally
@@ -93,15 +105,16 @@ namespace WordGuessGame
             }
         }
 
+        /// <summary>
+        /// Reads from a file and prints to the screen. Will check if file exists first, and if not, creates an empty file.
+        /// </summary>
+        /// <param name="path">Full file path</param>
         public static void ReadFile(string path)
         {
             try
             {
-                if (!File.Exists(path))
-                {
-                    Console.WriteLine("Can't read file because it doesn't exist. Creating file now...");
-                    CreateFile(path);
-                }
+                if (!File.Exists(path)) CreateFile(path);
+                Console.WriteLine("Current Word Bank:");
                 using(StreamReader sr = new StreamReader(path))
                 {
                     string s = "";
@@ -110,39 +123,48 @@ namespace WordGuessGame
                         Console.WriteLine(s);
                     }
                 }
+                Console.WriteLine("");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed reading file...");
+                Console.WriteLine("Failed reading file... " + e.Message);
                 throw;
-            }
-            finally
-            {
-                Console.WriteLine("Read File Operation Complete.");
             }
         }
 
-        public static void WriteToFile(string path, string userInput)
+        /// <summary>
+        /// Appends passed in userInput to file at path.
+        /// </summary>
+        /// <param name="path">Full file path</param>
+        /// <param name="userInput">user input passed from main menu to add to word bank</param>
+        public static void AppendToFile(string path, string userInput)
         {
-            using (StreamWriter sw = new StreamWriter(path))
+            using (StreamWriter sw = File.AppendText(path))
             {
                 sw.WriteLine(userInput);
             }
-            Console.WriteLine("Write File Operation Complete.");
+            Console.WriteLine("");
         }
 
+        /// <summary>
+        /// Removes a word from the word bank by creating a temp file with the missing word, then overwrites the original file.
+        /// </summary>
+        /// <param name="path">Full file path</param>
+        /// <param name="userInput">user input passed from main menu to remove from word bank</param>
         public static void UpdateFile(string path, string userInput)
         {
             string tempPath = "temp.txt";
+            CreateFile(tempPath);
             using (StreamReader sr = new StreamReader(path))
             {
                 string s = "";
                 while ((s = sr.ReadLine()) != null)
                 {
+                    // Appends list of words to temp file unless its the word being deleted.
                     if (userInput.ToLower() == s.ToLower()) continue;
                     else
                     {
-                        WriteToFile(tempPath, s);
+                        AppendToFile(tempPath, s);
                     }
                 }
             }
@@ -153,7 +175,7 @@ namespace WordGuessGame
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to overwrite word bank or delete temp file.");
+                Console.WriteLine("Failed to overwrite word bank or delete temp file. " + e.Message);
             }
         }
     }

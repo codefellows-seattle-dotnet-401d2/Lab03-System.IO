@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\WordGuessGame",
-    "\\XUnitTest-WordGuessGame"
+    "\\WordGuessGame\\WordGuessGame",
+    "\\WordGuessGame\\XUnitTest-WordGuessGame"
   ],
-  "SelectedNode": "\\WordGuessGame\\WordGuessGame.sln",
   "PreviewInSolutionExplorer": false
 }
