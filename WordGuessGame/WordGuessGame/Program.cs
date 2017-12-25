@@ -53,7 +53,7 @@ namespace WordGuessGame
                     StartGame(path);
                     break;
                 case "2":
-                    ReadFile(path);
+                    PrintWordBank(path);
                     break;
                 case "3":
                     Console.Write("Enter word to add to word bank: ");
@@ -61,7 +61,7 @@ namespace WordGuessGame
                     AppendToFile(path, userInput);
                     break;
                 case "4":
-                    ReadFile(path);
+                    PrintWordBank(path);
                     Console.Write("Type the word to delete from the word bank: ");
                     userInput = Console.ReadLine();
                     UpdateFile(path, userInput);
@@ -76,9 +76,77 @@ namespace WordGuessGame
             return (isValidInput) ? userInput : MainMenu();
         }
 
+
         public static void StartGame(string path)
         {
+            int wordBankLength = GetWordBankLength(path);
+            Console.WriteLine("Length of Word Bank: " + wordBankLength);
+            if (wordBankLength == 0) return;
+            Random r = new Random();
+            int rIndex = r.Next(0, wordBankLength);
+            Console.WriteLine("Index of Word Bank to use: " + rIndex);
+            string wordToGuess= GetWord(path, rIndex);
+            Console.WriteLine(wordToGuess);
+            char[] wordProgress = new char[wordToGuess.Length];
+            for (int i = 0; i < wordToGuess.Length; i++)
+            {
+                wordProgress[i] = '_';
+            }
 
+        }
+
+        private static int GetWordBankLength(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    CreateFile(path);
+                    Console.WriteLine("Word Bank is empty.");
+                    return 0;
+                }
+                else
+                {
+                    int wordBankLength = 0;
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            wordBankLength++;
+                        }
+                    }
+                    return wordBankLength;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed reading file... " + e.Message);
+                throw;
+            }
+        }
+
+        private static string GetWord(string path, int index)
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    string s = "";
+                    int i = 0;
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        if (index == i) return s;
+                        else i++;
+                    }
+                    return "logic error";
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed reading file..." + e.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -109,21 +177,28 @@ namespace WordGuessGame
         /// Reads from a file and prints to the screen. Will check if file exists first, and if not, creates an empty file.
         /// </summary>
         /// <param name="path">Full file path</param>
-        public static void ReadFile(string path)
+        public static void PrintWordBank(string path)
         {
             try
             {
-                if (!File.Exists(path)) CreateFile(path);
-                Console.WriteLine("Current Word Bank:");
-                using(StreamReader sr = new StreamReader(path))
+                if (!File.Exists(path))
                 {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine(s);
-                    }
+                    CreateFile(path);
+                    Console.WriteLine("Word Bank is empty.");
                 }
-                Console.WriteLine("");
+                else
+                {
+                    Console.WriteLine("Current Word Bank:");
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            Console.WriteLine(s);
+                        }
+                    }
+                    Console.WriteLine("");
+                }
             }
             catch (Exception e)
             {
