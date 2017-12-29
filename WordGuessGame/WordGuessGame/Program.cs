@@ -1,12 +1,4 @@
-﻿/* The program (should) contain the following:
- * Methods for each action (Home navigation, View words in the text file, add a word to the text file, remove words from a text file, exit the game, start a new game)
- * When playing a game, you should bring in all the words that exist in the text file, and randomly select one of the words to output to the console for the user to guess
- * You should have a record the letters they have attempted so far. If they guess a correct letter, display that letter in the console for them to refer back to when making guesses (i.e. C _ T S )
- * Errors should be handled through Exception handling
- * You may use any shortcuts or 'helper' methods in this project. Do not create external classes to accomplish this task.
-*/
-
-using System;
+﻿using System;
 using System.IO;
 
 namespace WordGuessGame
@@ -21,6 +13,7 @@ namespace WordGuessGame
         {
             string option = "";
             Console.WriteLine("Program starting...");
+            // Will continue to display the menu options until Exit is selected
             do
             {
                 option = MainMenu();
@@ -52,20 +45,24 @@ namespace WordGuessGame
                 case "1":
                     StartGame(path);
                     break;
+                // 2: To print all words in word bank to console
                 case "2":
                     PrintWordBank(path);
                     break;
+                // 3: To add a new word to the word bank
                 case "3":
                     Console.Write("Enter word to add to word bank: ");
                     userInput = Console.ReadLine();
                     AppendToFile(path, userInput);
                     break;
+                // 4: to delete a word from the word bank
                 case "4":
                     PrintWordBank(path);
                     Console.Write("Type the word to delete from the word bank: ");
                     userInput = Console.ReadLine();
                     UpdateFile(path, userInput);
                     break;
+                // 5: to exit from the program
                 case "5":
                     break;
                 default:
@@ -73,38 +70,90 @@ namespace WordGuessGame
                     Console.WriteLine("Input not valid! Try again.");
                     break;
             }
+            // Will display main menu again if user did not select a proper menu item.
             return (isValidInput) ? userInput : MainMenu();
         }
 
-
+        /// <summary>
+        /// When Start Game is selected from the menu, this will initialize the game by getting a random word from the word bank, and create an array of underscores that will fill in during the round. Calls PlayRound() with these two pieces of data.
+        /// </summary>
+        /// <param name="path">Full File Path</param>
         public static void StartGame(string path)
         {
+            // Will get the number of words in the word bank in order to generate a random word. Will exit game if word bank is empty.
             int wordBankLength = GetWordBankLength(path);
-            Console.WriteLine("Length of Word Bank: " + wordBankLength);
             if (wordBankLength == 0) return;
+            // Get a random word from the word bank.
             Random r = new Random();
             int rIndex = r.Next(0, wordBankLength);
-            Console.WriteLine("Index of Word Bank to use: " + rIndex);
             string wordToGuess= GetWord(path, rIndex);
-            Console.WriteLine(wordToGuess);
+            // Create an array of underscores to keep track of character guessing progress.
             char[] wordProgress = new char[wordToGuess.Length];
             for (int i = 0; i < wordToGuess.Length; i++)
             {
                 wordProgress[i] = '_';
             }
 
+            PlayRound(wordProgress, wordToGuess);
         }
 
-        private static int GetWordBankLength(string path)
+        /// <summary>
+        /// Controls the main loop of the current game in play. Won't exit until word has been guessed. Keeps track of total guesses.
+        /// </summary>
+        /// <param name="wordProgress">array of underscores, eventually fills in with chars with correct guesses</param>
+        /// <param name="wordToGuess">the random word grabbed from word bank</param>
+        public static void PlayRound(char[] wordProgress, string wordToGuess)
+        {
+            int guessesLeft = wordProgress.Length;
+            int totalGuesses = 0;
+            char keyPress = ' ';
+            string history = "";
+
+            // main loop will continue until every character in the word has been correctly guessed.
+            while (guessesLeft != 0)
+            {
+                // Prints progress of the word to guess, total guess count, and history of characters tried to the screen.
+                Console.WriteLine("");
+                foreach (char c in wordProgress) Console.Write(c + " ");
+                Console.WriteLine(" Total Guesses: " + totalGuesses);
+                Console.Write("History: ");
+                foreach (char c in history) Console.Write(c + " ");
+                // Takes a single key press, adds to the history.
+                Console.Write("\nEnter a letter to guess: ");
+                keyPress = char.ToUpper(Console.ReadKey().KeyChar);
+                history += keyPress;
+                Console.WriteLine("");
+                // Will check every character in the word, if the guessed char exists in the word and hasn't already been guessed, will fill in the empty spot with the char and reduce chars left to guess by 1.
+                for (int i=0; i < wordProgress.Length; i++)
+                {
+                    if(char.ToUpper(wordToGuess[i]) == keyPress && wordProgress[i] != keyPress)
+                    {
+                        wordProgress[i] = wordToGuess[i];
+                        guessesLeft--;
+                    }
+                }
+                totalGuesses++;
+            }
+            Console.WriteLine("\nYou Win! Total Guesses: " + totalGuesses);
+        }
+
+        /// <summary>
+        /// Will read every line in the local file to determine how many words are in it. If local File doesn't exist, will create file and return size of zero.
+        /// </summary>
+        /// <param name="path">Full file path</param>
+        /// <returns>Number of words in the file</returns>
+        public static int GetWordBankLength(string path)
         {
             try
             {
+                // Will create file if it doesn't exist, but tell you its empty and return size of zero.
                 if (!File.Exists(path))
                 {
                     CreateFile(path);
                     Console.WriteLine("Word Bank is empty.");
                     return 0;
                 }
+                // Read file line by line to find number of words.
                 else
                 {
                     int wordBankLength = 0;
@@ -126,7 +175,13 @@ namespace WordGuessGame
             }
         }
 
-        private static string GetWord(string path, int index)
+        /// <summary>
+        /// Will get return a string from a particular line from the word bank to be used in the guessing game.
+        /// </summary>
+        /// <param name="path">Full file path</param>
+        /// <param name="index">Random number used as a line number to grab word</param>
+        /// <returns>The word to be used in the game</returns>
+        public static string GetWord(string path, int index)
         {
             try
             {
@@ -134,6 +189,7 @@ namespace WordGuessGame
                 {
                     string s = "";
                     int i = 0;
+                    // Will check every line in the file until it reaches the line number passed into method and return that string.
                     while ((s = sr.ReadLine()) != null)
                     {
                         if (index == i) return s;
@@ -188,6 +244,7 @@ namespace WordGuessGame
                 }
                 else
                 {
+                    // Prints every line in the word bank to screen.
                     Console.WriteLine("Current Word Bank:");
                     using (StreamReader sr = new StreamReader(path))
                     {
@@ -245,6 +302,7 @@ namespace WordGuessGame
             }
             try
             {
+                // Replaces original file with new file without the word wanting to be removed.
                 File.Copy(tempPath, path, true);
                 File.Delete(tempPath);
             }
