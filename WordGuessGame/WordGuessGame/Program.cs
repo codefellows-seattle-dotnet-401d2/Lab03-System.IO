@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WordGuessGame
 {
-    class Program
+    public class Program
     {
         /// <summary>
         /// Handles main loop of program, only selecting "5" will exit the program.
@@ -12,14 +12,14 @@ namespace WordGuessGame
         static void Main(string[] args)
         {
             string option = "";
-            Console.WriteLine("Program starting...");
+            Console.WriteLine("Program starting...\n");
             // Will continue to display the menu options until Exit is selected
             do
             {
                 option = MainMenu();
                 if (option == "5") continue;
             } while (option != "5");
-            Console.Write("Program terminating... press Enter to exit...");
+            Console.Write("\nProgram terminating... press Enter to exit...");
             Console.ReadLine();
         }
 
@@ -30,7 +30,7 @@ namespace WordGuessGame
         public static string MainMenu()
         {
             Console.Write(
-                "\n1. Start Game " +
+                "1. Start Game " +
                 "\n2. View Word Bank " +
                 "\n3. Add to Word Bank " +
                 "\n4. Remove from Word Bank " +
@@ -51,7 +51,7 @@ namespace WordGuessGame
                     break;
                 // 3: To add a new word to the word bank
                 case "3":
-                    Console.Write("Enter word to add to word bank: ");
+                    Console.Write("\nEnter word to add to word bank: ");
                     userInput = Console.ReadLine();
                     AppendToFile(path, userInput);
                     break;
@@ -89,12 +89,18 @@ namespace WordGuessGame
             string wordToGuess= GetWord(path, rIndex);
             // Create an array of underscores to keep track of character guessing progress.
             char[] wordProgress = new char[wordToGuess.Length];
+            int guessesLeft = wordToGuess.Length;
             for (int i = 0; i < wordToGuess.Length; i++)
             {
-                wordProgress[i] = '_';
+                if(wordToGuess[i] == ' ')
+                {
+                    wordProgress[i] = ' ';
+                    guessesLeft--;
+                }
+                else wordProgress[i] = '_';
             }
 
-            PlayRound(wordProgress, wordToGuess);
+            PlayRound(wordProgress, wordToGuess, guessesLeft);
         }
 
         /// <summary>
@@ -102,39 +108,53 @@ namespace WordGuessGame
         /// </summary>
         /// <param name="wordProgress">array of underscores, eventually fills in with chars with correct guesses</param>
         /// <param name="wordToGuess">the random word grabbed from word bank</param>
-        public static void PlayRound(char[] wordProgress, string wordToGuess)
+        /// <param name="lengthMinusSpaces">characters needed to guess minus space characters</param>
+        public static void PlayRound(char[] wordProgress, string wordToGuess, int lengthMinusSpaces)
         {
-            int guessesLeft = wordProgress.Length;
+            int guessesLeft = lengthMinusSpaces;
             int totalGuesses = 0;
             char keyPress = ' ';
             string history = "";
 
             // main loop will continue until every character in the word has been correctly guessed.
-            while (guessesLeft != 0)
+            while (guessesLeft > 0)
             {
                 // Prints progress of the word to guess, total guess count, and history of characters tried to the screen.
                 Console.WriteLine("");
                 foreach (char c in wordProgress) Console.Write(c + " ");
                 Console.WriteLine(" Total Guesses: " + totalGuesses);
                 Console.Write("History: ");
-                foreach (char c in history) Console.Write(c + " ");
-                // Takes a single key press, adds to the history.
+                foreach (char c in history)
+                {
+                    Console.Write(c + " ");
+                }
+
+                // Takes a single key press, adds to the history if already not there and not a space.
                 Console.Write("\nEnter a letter to guess: ");
                 keyPress = char.ToUpper(Console.ReadKey().KeyChar);
-                history += keyPress;
-                Console.WriteLine("");
-                // Will check every character in the word, if the guessed char exists in the word and hasn't already been guessed, will fill in the empty spot with the char and reduce chars left to guess by 1.
-                for (int i=0; i < wordProgress.Length; i++)
+                if (!history.Contains(keyPress.ToString()) && keyPress != ' ')
                 {
-                    if(char.ToUpper(wordToGuess[i]) == keyPress && wordProgress[i] != keyPress)
+                    history += keyPress;
+                    totalGuesses++;
+                }
+                Console.WriteLine("");
+
+                // Will check every character in the word, if the guessed char exists in the word and hasn't already been guessed, will fill in the empty spot with the char and reduce chars left to guess by 1.
+                for (int i=0; i < wordToGuess.Length; i++)
+                {
+                    if(char.ToUpper(wordToGuess[i]) == keyPress && char.ToUpper(wordProgress[i]) != keyPress)
                     {
                         wordProgress[i] = wordToGuess[i];
                         guessesLeft--;
                     }
                 }
-                totalGuesses++;
             }
-            Console.WriteLine("\nYou Win! Total Guesses: " + totalGuesses);
+            Console.WriteLine("");
+            foreach (char c in wordProgress) Console.Write(c + " ");
+            Console.WriteLine(" Total Guesses: " + totalGuesses);
+            Console.Write("History: ");
+            foreach (char c in history) Console.Write(c + " ");
+            Console.WriteLine("\nYou Win!\n");
         }
 
         /// <summary>
@@ -209,7 +229,7 @@ namespace WordGuessGame
         /// Creates an empty file at path.
         /// </summary>
         /// <param name="path">full file path</param>
-        private static void CreateFile(string path)
+        public static void CreateFile(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
@@ -240,12 +260,12 @@ namespace WordGuessGame
                 if (!File.Exists(path))
                 {
                     CreateFile(path);
-                    Console.WriteLine("Word Bank is empty.");
+                    Console.WriteLine("\nWord Bank is empty.");
                 }
                 else
                 {
                     // Prints every line in the word bank to screen.
-                    Console.WriteLine("Current Word Bank:");
+                    Console.WriteLine("\nCurrent Word Bank:");
                     using (StreamReader sr = new StreamReader(path))
                     {
                         string s = "";
@@ -275,7 +295,7 @@ namespace WordGuessGame
             {
                 sw.WriteLine(userInput);
             }
-            Console.WriteLine("");
+            Console.WriteLine(userInput + " added to word bank!\n");
         }
 
         /// <summary>
@@ -305,6 +325,7 @@ namespace WordGuessGame
                 // Replaces original file with new file without the word wanting to be removed.
                 File.Copy(tempPath, path, true);
                 File.Delete(tempPath);
+                Console.WriteLine(userInput + " removed from word bank!\n");
             }
             catch (Exception e)
             {
