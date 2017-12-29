@@ -1,0 +1,16 @@
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.deps.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.runtimeconfig.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.runtimeconfig.dev.json
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.pdb
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\bin\Debug\netcoreapp2.0\WordGuessGame.pdb
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.csprojResolveAssemblyReference.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.csproj.CoreCompileInputs.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.AssemblyInfoInputs.cache
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.AssemblyInfo.cs
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.dll
+C:\Users\pedra\Documents\codefellows\401\Lab03-System-IO\WordGuessGame\XUnitTest-WordGuessGame\obj\Debug\netcoreapp2.0\XUnitTest-WordGuessGame.pdb
