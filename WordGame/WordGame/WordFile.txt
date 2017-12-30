@@ -4,4 +4,3 @@ CATCH
 TRY
 THROW
 
-chicken

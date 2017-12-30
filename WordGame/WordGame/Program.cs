@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
+using Xunit;
 
-// TODO: Make guess comparison work
-// TODO: Get Delete Word Working
-// TODO: 3 tests
-// NOTE: Use .Contains (does word contain users guess. return bool)
+// TODO: 3 TESTS
 
 namespace WordGame
 {
-    class Program
+    public class GuessGame
     {
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
         {
             string path = "WordFile.txt";
 
@@ -21,25 +21,37 @@ namespace WordGame
             ReadWord(path);
             string input = null;
             UpdateWord(path, input);
-            //DeleteWord(path);
+            DeleteWord(path);
+            
         }
 
+        public static string Testing()
+        {
+             Console.Write("Hey");
+            string x = Console.ReadLine();
+            return x;
+        }
+
+        /// <summary>
+        /// Allows the menu displayed to call relative individual functions
+        /// </summary>
         public static void Menu(string path)
         {
             bool loop = true;
-            
-            while(loop)
+
+            while (loop)
             {
                 int choice = DisplayMenu();
-                
-                switch(choice)
+
+                switch (choice)
                 {
                     case 1:
-                       // StartGame();
+                        StartGame(path);
+                        Console.ReadLine();
                         break;
                     case 2:
-                       ReadWord(path);
-                       Console.ReadLine();
+                        ReadWord(path);
+                        Console.ReadLine();
                         break;
                     case 3:
                         Console.WriteLine("Please input new word:");
@@ -47,16 +59,17 @@ namespace WordGame
                         UpdateWord(path, input);
                         break;
                     case 4:
-                        Console.WriteLine("Enter word you wish to delete:");
-                        string deleteInput = Console.ReadLine();
-                        DeleteWord(path, deleteInput);
+                        DeleteWord(path);
+                        Console.ReadLine();
                         break;
                     case 5:
-                       loop = false;
+                        loop = false;
+                        Console.ReadLine();
                         break;
                 }
             }
         }
+
         /// <summary>
         /// Displays menu that takes user input
         /// </summary>
@@ -71,12 +84,74 @@ namespace WordGame
             string result = Console.ReadLine();
             int numChoice = Convert.ToInt32(result);
             return numChoice;
+        }
+
+        /// <summary>
+        /// Randomizes a word to be chosen for the game
+        /// </summary>
+        /// <returns>A string of a word</returns>
+        public static string RandomWord(string path)
+        {
+
+            string[] lines = File.ReadAllLines(path);
+            Random rand = new Random();
+            string word = lines[rand.Next(lines.Length)];
+            Console.WriteLine(word);
+
+            return word;
+        }
+
+
+        /// <summary>
+        /// Starts gameplay 
+        /// </summary>
+        public static void StartGame(string path)
+        {
+
+            Console.WriteLine("Let's Play!");
+            Console.Write("Here is your word: ");
+            string word = RandomWord(path);
+            Console.WriteLine("Guess a letter to complete the word: ");
+
+            // a collection of wrong guesses
+            char[] history = new char[26];
+            int counter = 0;
+
+            // a collection of correct guesses
+            char[] progress = new char[word.Length];
+            int progCounter = 0;
+
+            // loop to continue game until all words are correct
+            for (int i = 0; i < word.Length; i++)
+            {
+                char userGuess = Console.ReadKey().KeyChar;
+                bool correctGuess = word.Contains(userGuess);
+
+
+                // condition statements that add chars to their collective arrays
+                if (correctGuess)
+                {
+                    Console.WriteLine("Correct!");
+                    progress[progCounter++] = userGuess;
+                }
+                else
+                {
+                    Console.WriteLine("Guess Again!");
+                    history[counter++] = userGuess;
+                }
+
+                Console.Write("Word: ");
+                Console.WriteLine(progress);
+                Console.Write("History: ");
+                Console.WriteLine(history);
+                Console.WriteLine();
             }
+        }
 
         /// <summary>
         /// Creates file with list of strings
         /// </summary>
-        static void CreateFile(string path)
+        public static void CreateFile(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
@@ -100,8 +175,10 @@ namespace WordGame
             }
         }
 
-        // outputs list of file contents
-        static void ReadWord(string path)
+        /// <summary>
+        /// Outputs list of file contents
+        /// </summary>
+        public static void ReadWord(string path)
         {
             using (StreamReader sr = File.OpenText(path))
             {
@@ -113,24 +190,59 @@ namespace WordGame
             }
         }
 
-        // updates word through user input
-        static void UpdateWord(string path, string input)
+        /// <summary>
+        /// Updates word through user input
+        /// </summary>
+        /// <param name="path">stream of txt file</param>
+        /// <param name="input">input from user to file</param>
+        public static void UpdateWord(string path, string input)
         {
 
-             using (StreamWriter sw = File.AppendText(path))
+            using (StreamWriter sw = File.AppendText(path))
             {
                 sw.WriteLine(input);
             }
         }
 
-        // read from file
-        // create new file without deleted word
-        // delete old file
-
-        // Deletes the word from input
-        static void DeleteWord(string path, string deleteInput)
+        /// <summary>
+        /// Deletes a word from the existing list through user input
+        /// </summary>
+        public static void DeleteWord(string path)
         {
-            File.Delete(deleteInput);
+            Console.WriteLine("Enter word you wish to remove: ");
+
+            string word = Console.ReadLine();
+
+            // Creates temporary file
+            string tempFile = Path.GetTempFileName();
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(path))
+                using (StreamWriter sw = new StreamWriter(tempFile))
+                {
+                    string line;
+
+                    // Matches line with user input
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line != word)
+                            sw.WriteLine(line);
+                    }
+                }
+
+                File.Delete(path);
+
+                //Replace file
+                File.Move(tempFile, path);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
+
+        
     }
 }
