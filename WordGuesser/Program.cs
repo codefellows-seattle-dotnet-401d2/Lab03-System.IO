@@ -46,7 +46,7 @@ namespace WordGuesser
                 int lineCount = 0;
                 while(sr.ReadLine() != null)
                 {
-                    lineCount++
+                    lineCount++;
                 }
                 string[] lineArray = new string[lineCount];
 
