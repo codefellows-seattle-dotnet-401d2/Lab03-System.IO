@@ -1,0 +1,16 @@
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.csprojResolveAssemblyReference.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.csproj.CoreCompileInputs.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.AssemblyInfoInputs.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.AssemblyInfo.cs
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\XUnitTestProject1.deps.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\XUnitTestProject1.runtimeconfig.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\XUnitTestProject1.runtimeconfig.dev.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\XUnitTestProject1.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\XUnitTestProject1.pdb
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\WordGuesser.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\bin\Debug\netcoreapp2.0\WordGuesser.pdb
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\XUnitTestProject1\obj\Debug\netcoreapp2.0\XUnitTestProject1.pdb
