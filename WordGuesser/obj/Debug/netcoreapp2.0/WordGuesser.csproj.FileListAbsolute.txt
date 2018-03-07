@@ -1,0 +1,11 @@
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\bin\Debug\netcoreapp2.0\WordGuesser.deps.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\bin\Debug\netcoreapp2.0\WordGuesser.runtimeconfig.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\bin\Debug\netcoreapp2.0\WordGuesser.runtimeconfig.dev.json
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\bin\Debug\netcoreapp2.0\WordGuesser.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.csprojResolveAssemblyReference.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.csproj.CoreCompileInputs.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.AssemblyInfoInputs.cache
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.AssemblyInfo.cs
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\bin\Debug\netcoreapp2.0\WordGuesser.pdb
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.dll
+M:\OneDrive\Documents\Projects\Lab03-System.IO\WordGuesser\obj\Debug\netcoreapp2.0\WordGuesser.pdb
